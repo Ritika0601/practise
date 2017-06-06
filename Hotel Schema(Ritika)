@@ -1,0 +1,51 @@
+//Schema Design of hotel//
+
+//JSON Object//
+>db.hotel.insert({"hotelName":"Taj","capacity":50,"roomId":"101","roomType":"Luxurious","roomCapacity":2,user:[{"userId":1,"userName":"Ritika Soni","address":"559,sctor 38,gurgaon","email":"ritikasoni@gmail.com","mobile":"9460643394"},{"userId":2,"userName":"Ankita Rai","address":"34,sctor 45,delhi","email":"ankitarai@gmail.com","mobile":"9345672345"},]})
+
+
+
+Output
+{
+	"_id" : ObjectId("593000676673ba3196008f85"), 
+	"hotelName" : "Taj",                       
+	"capacity" : 50,                             
+	"roomId" : "101"                              
+	"roomType" : "luxurious",                    
+	"roomCapacity" : 2,                         
+	"user" : [                     
+		{
+			"userId" : 1,
+			"userName" : "Ritika Soni",
+			"address" : "559,sctor 38,gurgaon",
+			"email" : "ritikasoni@gmail.com",
+			"mobile" : "9460643394"
+		},
+		{
+			"userId" : 2,
+			"userName" : "Ankita Rai",
+			"address" : "34,sctor 45,delhi",
+			"email" : "ankitarai@gmail.com",
+			"mobile" : "9345672345"
+		}
+	]
+}
+
+
+Query 1: Write a query to create new room
+>db.hotel.insert({"hotelName":"Taj","capacity":50,"roomId":"102","roomType":"Suit","roomCapacity”:4,”user”:[]})
+ 
+ 
+Query 2: write a query to add users in a particular room
+> db.hotel.update({"roomId":"101"},{$push:{"user":{"userId":3,"userName":"Jitesh Singh","address":"23,bihar","email":"jiteshsingh@gmail.com","mobile":"9445676543"}}})
+
+
+Query 3: write a query to update user information
+>
+db.hotel.update({"roomId":"101","user":{$elemMatch:{"userId":1}}},{$set:{"user.$.userName":"Priya Gupta"}})
+
+Query 4:write a query to remove a room
+>db.hotel.deleteOne({"roomId":"102"})
+
+Query 5:write a query to remove particular user from a room.
+>db.hotel.update({"roomId":"101"},{$pop:{"user":{"userId":3}}})
